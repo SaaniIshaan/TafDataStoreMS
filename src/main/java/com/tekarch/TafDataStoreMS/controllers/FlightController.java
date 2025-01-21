@@ -37,6 +37,34 @@ public class FlightController {
         return new ResponseEntity<>(addedFlight, HttpStatus.CREATED);
     }
 
+    // Get available seats for a specific flight
+    @GetMapping("/flights/{flightId}/availableSeats")
+    public ResponseEntity<Integer> getAvailableSeats(@PathVariable Long flightId) {
+        Flights flight = flightServiceImpl.getFlightById(flightId);
+        if (flight != null) {
+            return ResponseEntity.ok(flight.getAvailableSeats());  // Return the available seats
+        }
+        return ResponseEntity.notFound().build();  // Return 404 if the flight is not found
+    }
 
+    @PutMapping("/flights/{flightId}/reduceSeats")
+    public ResponseEntity<Void> reduceAvailableSeats(@PathVariable Long flightId) {
+        Flights flight = flightServiceImpl.getFlightById(flightId);
+        if (flight != null && flight.getAvailableSeats() > 0) {
+            flight.setAvailableSeats(flight.getAvailableSeats() - 1);  // Reduce seats by 1
+            flightServiceImpl.updateFlight(flight);  // Save the updated flight record
+            return ResponseEntity.noContent().build();  // Return 204 No Content
+        } else {
+            return ResponseEntity.badRequest().body(null);  // Return 400 if no seats are available
+        }
+    }
+
+    @DeleteMapping("/flights{flightId}")
+    public ResponseEntity<String> deleteFlight(@PathVariable Long flightId) {
+        flightServiceImpl.deleteFlight(flightId);
+        String message = "Flight with id " + flightId + " has been deleted.";
+        return ResponseEntity.ok(message);
+
+    }
 
 }

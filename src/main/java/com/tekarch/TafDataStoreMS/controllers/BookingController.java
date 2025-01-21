@@ -30,7 +30,7 @@ public class BookingController {
     }
 
     // Get all bookings
-    @GetMapping
+    @GetMapping("/bookings")
     public ResponseEntity<List<Bookings>> getAllBookings() {
         List<Bookings> bookings = bookingServiceImpl.getAllBookings();
         return new ResponseEntity<>(bookings, HttpStatus.OK);
@@ -44,13 +44,22 @@ public class BookingController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Update booking (e.g., change status or flight)
-    @PutMapping("/bookings/{bookingId}")
+    @PutMapping("bookings/{bookingId}")
     public ResponseEntity<Bookings> updateBooking(@PathVariable Long bookingId, @RequestBody Bookings updatedBooking) {
         Bookings updated = bookingServiceImpl.updateBooking(bookingId, updatedBooking);
         return updated != null ? new ResponseEntity<>(updated, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+
+ /*   // Update booking (e.g., change status or flight)
+    @PutMapping("/{bookingId}")
+    public ResponseEntity<Bookings> updateBooking(@PathVariable Long bookingId, @RequestBody Bookings updatedBooking) {
+        Bookings updated = bookingServiceImpl.updateBooking(bookingId, updatedBooking);
+        return updated != null ? new ResponseEntity<>(updated, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+*/
 
     // Cancel a booking (mark as 'Cancelled')
     @PutMapping("/bookings/{bookingId}/cancel")
