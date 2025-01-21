@@ -10,13 +10,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+
 @AllArgsConstructor
 @Data
 @Entity
 public class Flights {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name ="flight_id", nullable = false,length = 20)
     private Long flightId;
     @NotNull(message = "Flight number is required")

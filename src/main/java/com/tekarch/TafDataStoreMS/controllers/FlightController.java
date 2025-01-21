@@ -2,6 +2,7 @@ package com.tekarch.TafDataStoreMS.controllers;
 
 import com.tekarch.TafDataStoreMS.models.Flights;
 import com.tekarch.TafDataStoreMS.services.FlightServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class FlightController {
     }
 
     @PostMapping("/flights")
-    public ResponseEntity<Flights> addFlight(@RequestBody Flights flight) {
+    public ResponseEntity<Flights> addFlight(@RequestBody @Valid Flights flight) {
         Flights addedFlight = flightServiceImpl.addFlight(flight);
         return new ResponseEntity<>(addedFlight, HttpStatus.CREATED);
     }
