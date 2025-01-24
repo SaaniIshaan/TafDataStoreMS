@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface FlightService {
 
-    Flights addFlight(Flights flights);
+    Flights addFlight(Flights flight);
     List<Flights> getAllFlights();
     Flights getFlightById(Long flightId);
     Flights updateFlight(Flights flight);

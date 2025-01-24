@@ -32,6 +32,7 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.save(booking);
     }
 
+
     @Override
     public List<Bookings> getAllBookings() {
         return bookingRepository.findAll();
@@ -40,6 +41,11 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Bookings getBookingById(Long bookingId) {
         return bookingRepository.findById(bookingId).orElse(null);
+    }
+
+    @Override
+    public List<Bookings> getBookingByuserId(Long userId) {
+        return bookingRepository.findByUserId(userId);
     }
 
     @Override
